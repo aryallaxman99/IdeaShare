@@ -1,0 +1,38 @@
+<h5><i class="fas fa-book-reader"></i> Dashboard</h5>
+<h3>Welcome {{name}},</h3>
+<h6 class="center">Here are your posted Ideas:</h6>
+{{#if stories}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Posted On</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each stories}}
+        <tr>
+            <td><a href="/stories/{{_id}}" style="color:#4caf50; font-weight:600">{{title}}</a></td>
+            <td>{{formatDate createdAt 'MMMM Do, YYYY - h:mm a'}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td>
+                <a href="/stories/edit/{{_id}}" class="btn btn-float">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+
+                <form action="/stories/{{_id}}" method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<h5 class="center" style="color:#f44336;"> <i class="fas fa-exclamation-triangle"></i> You haven't uploaded yet!</h5>
+{{/if}}
